@@ -15,6 +15,7 @@ public class TrackActivity {
     private final ActivityRepository activityRepository;
 
     public ActivityResponse trackActivity(final ActivityRequest request) {
+
         Activity activity = Activity.builder()
                 .userId(request.getUserId())
                 .type(request.getActivityType())
@@ -25,7 +26,7 @@ public class TrackActivity {
                 .build();
 
         var savedActivity = activityRepository.save(activity);
-        
+
         return ActivityToResponse
                 .activityToResponse(savedActivity);
     }

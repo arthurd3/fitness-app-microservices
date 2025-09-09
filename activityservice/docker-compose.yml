@@ -8,11 +8,8 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongodb_community_data:/data/db l
+      - mongodb_community_data:/data/db
       - ./mongo-init:/docker-entrypoint-initdb.d
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: 12345
 
 #  atlas_local:
 #    image: mongodb/mongodb-atlas-local:latest
@@ -26,6 +23,5 @@ services:
 
 volumes:
   mongodb_community_data: {}
-  mongodb_data: {}
 #  atlas_local_data: {}
 #  atlas_local_config: {}
