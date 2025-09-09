@@ -5,14 +5,16 @@ import com.arthur.activityservice.dtos.ActivityResponse;
 import com.arthur.activityservice.mappers.ActivityToResponse;
 import com.arthur.activityservice.models.Activity;
 import com.arthur.activityservice.reposiroty.ActivityRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class TrackActivity {
 
     private final ActivityRepository activityRepository;
+
+    public TrackActivity(ActivityRepository activityRepository) {
+        this.activityRepository = activityRepository;
+    }
 
     public ActivityResponse trackActivity(final ActivityRequest request) {
 
