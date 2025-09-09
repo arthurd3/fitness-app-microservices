@@ -1,4 +1,4 @@
-package com.arthur.fitness.userservice.dto;
+package com.arthur.fitness.userservice.dtos;
 
 import lombok.Builder;
 import lombok.Data;

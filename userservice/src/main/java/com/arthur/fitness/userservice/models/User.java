@@ -1,4 +1,4 @@
-package com.arthur.fitness.userservice.model;
+package com.arthur.fitness.userservice.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

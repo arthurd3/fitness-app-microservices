@@ -1,4 +1,4 @@
-package com.arthur.activityservice.model;
+package com.arthur.activityservice.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.arthur.fitness.userservice.dto;
+package com.arthur.fitness.userservice.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
