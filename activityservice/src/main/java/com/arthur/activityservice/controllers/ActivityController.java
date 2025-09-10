@@ -2,6 +2,7 @@ package com.arthur.activityservice.controllers;
 
 import com.arthur.activityservice.dtos.ActivityRequest;
 import com.arthur.activityservice.dtos.ActivityResponse;
+import com.arthur.activityservice.usecases.GetActivity;
 import com.arthur.activityservice.usecases.GetUserActivities;
 import com.arthur.activityservice.usecases.TrackActivity;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class ActivityController {
 
     private final TrackActivity activityTrack;
     private final GetUserActivities getUserActivities;
+    private final GetActivity getActivity;
 
     @PostMapping
     public ResponseEntity<ActivityResponse> trackActivity(@RequestBody ActivityRequest request){
@@ -26,5 +28,10 @@ public class ActivityController {
     @GetMapping
     public ResponseEntity<List<ActivityResponse>> getUserActivities(@RequestHeader("X-User-ID") final String userId){
         return ResponseEntity.ok(getUserActivities.getUserActivities(userId));
+    }
+
+    @GetMapping("/{activityId}")
+    public ResponseEntity<ActivityResponse> getActivity(@PathVariable final String activityId){
+        return ResponseEntity.ok(getActivity.getActivityById(activityId));
     }
 }
