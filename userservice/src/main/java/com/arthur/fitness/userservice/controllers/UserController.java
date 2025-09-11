@@ -7,12 +7,14 @@ import com.arthur.fitness.userservice.usecases.GetUserProfile;
 import com.arthur.fitness.userservice.usecases.RegisterUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final GetUserProfile getUserProfile;
@@ -31,6 +33,7 @@ public class UserController {
 
     @GetMapping("/{userId}/validate")
     public ResponseEntity<Boolean> validateUser(@PathVariable final String userId) {
+        log.info("<== USER-SERVICE: Recebido pedido de validação para o userId: '[{}]'", userId);
         return ResponseEntity.ok(existsById.existsById(userId));
     }
 

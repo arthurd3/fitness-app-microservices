@@ -1,4 +1,9 @@
 spring:
+  cloud:
+    config:
+      enabled: false
+      import-check:
+        enabled: false
   application:
     name: user-service
   datasource:
@@ -13,6 +18,11 @@ server:
   port: 8081
 
 eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
   client:
+    fetch-registry: true
+    register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka
