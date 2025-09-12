@@ -1,4 +1,3 @@
-
 db = db.getSiblingDB('fitnessrecommendation');
 
 db.createCollection('recommendations');
