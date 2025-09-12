@@ -17,17 +17,17 @@ services:
 
   mongodb_activity:
     image: mongodb/mongodb-community-server:latest
-    container_name: ai_db
+    container_name: activity_db
     restart: unless-stopped
     ports:
-      - "27018:27018"
+      - "27017:27017"
     volumes:
       - activity_db_data:/data/db
       - ./.mongo-init/init-activity-db.js:/docker-entrypoint-initdb.d/init.js
 
   mongodb_ai:
     image: mongodb/mongodb-community-server:latest
-    container_name: activity_db
+    container_name: ai_db
     restart: unless-stopped
     ports:
       - "27018:27017"
