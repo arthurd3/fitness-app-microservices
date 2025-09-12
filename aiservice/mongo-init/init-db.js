@@ -1,6 +1,6 @@
 
-db = db.getSiblingDB('fitnessrecomendation');
+db = db.getSiblingDB('fitnessrecommendation');
 
-db.createCollection('recomendations');
+db.createCollection('recommendations');
 
-print("Database 'fitnessrecomendation' and collections 'recomendations' is created with success.");
+print("Database 'fitnessrecommendation' and collections 'recommendations' is created with success.");

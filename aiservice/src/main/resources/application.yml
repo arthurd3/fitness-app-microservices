@@ -1,6 +1,9 @@
 spring:
   application:
     name: ai-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27018/fitnessrecommendation
 server:
   port: 8083
 
