@@ -33,7 +33,6 @@ public class UserController {
 
     @GetMapping("/{userId}/validate")
     public ResponseEntity<Boolean> validateUser(@PathVariable final String userId) {
-        log.info("<== USER-SERVICE: Recebido pedido de validação para o userId: '[{}]'", userId);
         return ResponseEntity.ok(existsById.existsById(userId));
     }
 

@@ -14,11 +14,11 @@ public class UserValidationService {
 
     public boolean validateUser(final String userId) {
         try{
-            return userServiceWebClient.get()
+            return Boolean.TRUE.equals(userServiceWebClient.get()
                     .uri("/api/v1/users/{userId}/validate", userId)
                     .retrieve()
                     .bodyToMono(Boolean.class)
-                    .block();
+                    .block());
         }catch (WebClientResponseException ex){
             if(ex.getStatusCode() == HttpStatus.NOT_FOUND)
                 throw new RuntimeException("User not found" + userId);

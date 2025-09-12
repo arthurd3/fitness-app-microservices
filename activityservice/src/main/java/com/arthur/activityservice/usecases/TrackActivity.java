@@ -19,7 +19,6 @@ public class TrackActivity {
 
 
     public ActivityResponse trackActivity(final ActivityRequest request) {
-        log.info("==> ACTIVITY-SERVICE: Chamando validação para o userId: '[{}]'", request.getUserId());
         boolean isValidUser = userValidationService.validateUser(request.getUserId());
         log.info("user validation is {}", isValidUser);
         if (!isValidUser) {
