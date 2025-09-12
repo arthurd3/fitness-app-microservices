@@ -35,6 +35,20 @@ services:
       - ai_db_data:/data/db
       - ./.mongo-init/init-ai-db.js:/docker-entrypoint-initdb.d/init.js
 
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=YOUR_USERNAME
+      - RABBITMQ_DEFAULT_PASS=YOUR_PASSWORD
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+networks:
+  default:
+    driver: bridge
+
 volumes:
   pgdata:
   activity_db_data: {}
