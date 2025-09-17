@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -39,10 +42,26 @@ public class ActivityAIService {
                     .replaceAll("\\n```", "")
                     .trim();
 
-            log.info("Parsed response from AI is {}", jsonContent);
+            JsonNode analysisJson = objectMapper.readTree(jsonContent);
+            JsonNode analysisNode = analysisJson.path("analysis");
+            StringBuilder fullAnalysis = new StringBuilder();
 
+            addAnalysisSection(fullAnalysis , analysisNode , "overall" , "Overall:");
+            addAnalysisSection(fullAnalysis , analysisNode , "pace" , "Pace:");
+            addAnalysisSection(fullAnalysis , analysisNode , "heartRate" , "Heart Rate:");
+            addAnalysisSection(fullAnalysis , analysisNode , "caloriesBurned" , "Calories Burned:");
+
+            List<String> improvements = extractImprovements(analysisJson.path("improvements"));
         }catch (Exception ex){
             log.error("Error processing AI response", ex);
+        }
+    }
+
+    private void addAnalysisSection(final StringBuilder fullAnalysis, final JsonNode analysisNode, final String key, final String prefix) {
+        if(analysisNode.path(key).isMissingNode()){
+            fullAnalysis.append(prefix)
+                    .append(analysisNode.path(key).asText())
+                    .append("\n\n");
         }
     }
 
