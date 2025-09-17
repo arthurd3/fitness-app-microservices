@@ -57,6 +57,17 @@ public class ActivityAIService {
         }
     }
 
+    private List<String> extractImprovements(JsonNode improvements) {
+        List<String> improvementList = new ArrayList<>();
+        if(improvements.isArray()){
+            improvements.forEach(improvement->{
+               String area = improvement.path("area").asText();
+               String datail = improvement.path("improvementsNode") ?
+                       improvement.path("recommendation");
+            });
+        }
+    }
+
     private void addAnalysisSection(final StringBuilder fullAnalysis, final JsonNode analysisNode, final String key, final String prefix) {
         if(analysisNode.path(key).isMissingNode()){
             fullAnalysis.append(prefix)
