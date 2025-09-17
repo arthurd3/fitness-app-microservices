@@ -1,5 +1,7 @@
 package com.server.aiservice.usecases;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.aiservice.model.Activity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +18,32 @@ public class ActivityAIService {
         String prompt = createPromptForActivity(activity);
         String aiResponse = geminiService.getAnswer(prompt);
         log.info("AI Response is {}", aiResponse);
+        processAiResponse(activity, aiResponse);
         return aiResponse;
+    }
+
+    private void processAiResponse(final Activity activity , final String aiResponse) {
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(aiResponse);
+
+            JsonNode textNode = rootNode.path("candidates")
+                    .get(0)
+                    .path("content")
+                    .path("parts")
+                    .get(0)
+                    .path("text");
+
+            String jsonContent = textNode.asText()
+                    .replaceAll("```json\\n", "")
+                    .replaceAll("\\n```", "")
+                    .trim();
+
+            log.info("Parsed response from AI is {}", jsonContent);
+
+        }catch (Exception ex){
+            log.error("Error processing AI response", ex);
+        }
     }
 
     private String createPromptForActivity(final Activity activity) {
