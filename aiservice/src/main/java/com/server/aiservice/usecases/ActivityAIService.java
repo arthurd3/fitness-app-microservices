@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -62,10 +63,14 @@ public class ActivityAIService {
         if(improvements.isArray()){
             improvements.forEach(improvement->{
                String area = improvement.path("area").asText();
-               String datail = improvement.path("improvementsNode") ?
-                       improvement.path("recommendation");
+               String detail = improvement.path("recommendation").asText();
+               improvementList.add(String.format("%s %s", area, detail));
             });
+            return improvementList.isEmpty() ?
+                    Collections.singletonList("No specific improvements provided") :
+                    improvementList;
         }
+
     }
 
     private void addAnalysisSection(final StringBuilder fullAnalysis, final JsonNode analysisNode, final String key, final String prefix) {
