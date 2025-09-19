@@ -1,6 +1,7 @@
 package com.server.aiservice.usecases;
 
 import com.server.aiservice.model.Activity;
+import com.server.aiservice.model.Recommendation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -16,7 +17,8 @@ public class ActivityMessageListener {
     @RabbitListener(queues = "activity.queue")
     public void processActivity(Activity activity) {
         log.info("Received activity for processing: {}", activity.getId());
-        log.info("Generate Recommendation: {}", aiService.generateRecommendation(activity));
+//        log.info("Generate Recommendation: {}", aiService.generateRecommendation(activity));
+        Recommendation recommendation = aiService.generateRecommendation(activity);
     }
 
 }
