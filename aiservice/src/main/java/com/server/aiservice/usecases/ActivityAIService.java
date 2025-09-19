@@ -53,15 +53,32 @@ public class ActivityAIService {
             addAnalysisSection(fullAnalysis , analysisNode , "caloriesBurned" , "Calories Burned:");
 
             List<String> improvements = extractImprovements(analysisJson.path("improvements"));
+
+            List<String> suggestions = extractSuggestions(analysisJson.path("suggestions"));
+            
         }catch (Exception ex){
             log.error("Error processing AI response", ex);
         }
     }
 
-    private List<String> extractImprovements(JsonNode improvements) {
+    private List<String> extractSuggestions(final JsonNode suggestionsNode) {
+        List<String> suggestionsList = new ArrayList<>();
+        if(suggestionsNode.isArray()){
+            suggestionsNode.forEach(suggestion -> {
+                String workout = suggestion.path("workout").asText();
+                String description = suggestion.path("description").asText();
+                suggestionsList.add(String.format("%s %s", workout, description));
+            });
+            return suggestionsList.isEmpty() ?
+                    Collections.singletonList("No specific improvements provided") :
+                    suggestionsList;
+        }
+    }
+
+    private List<String> extractImprovements(JsonNode improvementsNode) {
         List<String> improvementList = new ArrayList<>();
-        if(improvements.isArray()){
-            improvements.forEach(improvement->{
+        if(improvementsNode.isArray()){
+            improvementsNode.forEach(improvement->{
                String area = improvement.path("area").asText();
                String detail = improvement.path("recommendation").asText();
                improvementList.add(String.format("%s %s", area, detail));
