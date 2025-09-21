@@ -8,12 +8,10 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/v1/users/**
-
         - id: activity-service
           uri: lb://ACTIVITY-SERVICE
           predicates:
             - Path=/api/v1/activities/**
-
         - id: AI-service
           uri: lb://AI-SERVICE
           predicates:
