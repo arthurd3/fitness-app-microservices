@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 
@@ -10,9 +11,9 @@ import { authConfig } from './authConfig'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <AuthProvider authConfig={authConfig}
-            loadingComponent={<div>Loading...</div>}>
+                loadingComponent={<div>Loading...</div>}>
     <Provider store={store}>
       <App />
-    </Provider>,
-  </AuthProvider>
+    </Provider>
+  </AuthProvider>,
 )

@@ -1,5 +1,6 @@
 import { Button } from "@mui/material"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "react-oauth2-code-pkce";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router , Navigate , Route , Routes , useLocation} from "react-router"
 import { setCredentials } from "./store/authSlice";
@@ -19,7 +20,16 @@ function App() {
 
   return (
     <Router>
-      <Button variant="contained" color="#dc004e">Login </Button>
+      {!token ? (
+      <Button variant="contained" color="#dc004e"
+        onClick={() => { 
+          logIn();
+        }}> LOGIN </Button>) : (
+          <div>
+            <pre>{JSON.stringify(tokenData, null , 2)}</pre>
+            <pre>{JSON.stringify(token)}</pre>
+          </div>
+        ) }
     </Router>
   )
 }
