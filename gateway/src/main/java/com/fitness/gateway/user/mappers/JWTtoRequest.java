@@ -1,7 +1,6 @@
 package com.fitness.gateway.user.mappers;
 
 import com.fitness.gateway.user.RegisterRequest;
-import com.fitness.gateway.user.UserResponse;
 import com.nimbusds.jwt.JWTClaimsSet;
 
 import java.text.ParseException;
@@ -12,7 +11,7 @@ public class JWTtoRequest {
         return RegisterRequest.builder()
                 .email(claims.getStringClaim("email"))
                 .keycloakId(claims.getStringClaim("sub"))
-                .password(claims.getStringClaim("dummy@123123"))
+                .password("dummy@123123")
                 .firstName(claims.getStringClaim("given_name"))
                 .lastName(claims.getStringClaim("family_name"))
                 .build();

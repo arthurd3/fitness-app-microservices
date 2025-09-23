@@ -16,12 +16,15 @@ public class RegisterUser {
 
     public UserResponse register(final RegisterRequest request) {
 
-        if(userRepository.existsByEmail(request.getEmail()))
-            throw new RuntimeException("Email already exists");
+        if(userRepository.existsByEmail(request.getEmail())){
+            User existingUser = userRepository.findByEmail(request.getEmail());
+            return UserToResponse.userToResponse(existingUser);
+        }
 
         User user = User.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
+                .keycloakId(request.getKeycloakId())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .build();
