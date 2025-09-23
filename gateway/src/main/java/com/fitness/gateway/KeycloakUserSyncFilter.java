@@ -1,6 +1,11 @@
 package com.fitness.gateway;
 
+import com.fitness.gateway.user.RegisterRequest;
 import com.fitness.gateway.user.UserService;
+import com.fitness.gateway.user.mappers.JWTtoRequest;
+import com.fitness.gateway.user.mappers.UserToResponse;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -31,7 +36,13 @@ public class KeycloakUserSyncFilter implements WebFilter {
                     .flatMap(exist -> {
                         if(!exist) {
                             // Register User
-                            return Mono.empty();
+                            RegisterRequest registerRequest = getUserDetails(token);
+                            if(registerRequest != null) {
+                                return userService.registerUser(registerRequest)
+                                        .then(Mono.empty());
+                            }else {
+                                return Mono.empty();
+                            }
                         } else  {
                             log.info("User {} already exist , Skipping Sync", userId);
                             return Mono.empty();
@@ -45,5 +56,17 @@ public class KeycloakUserSyncFilter implements WebFilter {
                     }));
         }
 
+    }
+
+    private RegisterRequest getUserDetails(final String token) {
+        try {
+            String tokenWithoutBearer = token.replace("Bearer ", "").trim();
+            SignedJWT signedJWT = SignedJWT.parse(tokenWithoutBearer);
+            JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
+            return JWTtoRequest.jwtToRequest(claims);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

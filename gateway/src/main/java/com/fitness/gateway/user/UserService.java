@@ -29,4 +29,20 @@ public class UserService {
                 return Mono.error(new RuntimeException("Unexpected Error" + userId));
             });
     }
+
+    public Mono<UserResponse> registerUser(final RegisterRequest request) {
+        log.info("Calling User Registration API for email: {}", request.getEmail());
+        return userServiceWebClient.post()
+                .uri("/api/v1/users/register")
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(UserResponse.class)
+                .onErrorResume(WebClientResponseException.class , e -> {
+                    if(e.getStatusCode() == HttpStatus.BAD_REQUEST)
+                        return Mono.error(new RuntimeException("Bad Request" + e.getMessage()));
+                    if(e.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR)
+                        return Mono.error(new RuntimeException("Internal Server Error" + e.getMessage()));
+                    return Mono.error(new RuntimeException("Unexpected Error" + e.getMessage()));
+                });
+    }
 }
