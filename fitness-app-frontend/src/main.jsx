@@ -4,11 +4,15 @@ import { Provider } from 'react-redux'
 import { store } from './store/store'
 
 import App from './App'
+import { AuthProvider } from 'react-oauth2-code-pkce'
+import { authConfig } from './authConfig'
 
-// As of React 18
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <AuthProvider authConfig={authConfig}
+            loadingComponent={<div>Loading...</div>}>
+    <Provider store={store}>
+      <App />
+    </Provider>,
+  </AuthProvider>
 )
