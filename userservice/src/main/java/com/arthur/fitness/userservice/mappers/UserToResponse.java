@@ -8,6 +8,7 @@ public class UserToResponse {
     public static UserResponse userToResponse(final User user){
         return UserResponse.builder()
                 .id(user.getId())
+                .keycloakId(user.getKeycloakId())
                 .password(user.getPassword())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())

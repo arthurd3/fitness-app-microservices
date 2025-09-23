@@ -14,6 +14,6 @@ public class ExistsById {
 
     public boolean existsUserById(final String userId){
         log.info("Validating exist User by id {}", userId);
-        return userRepository.existsById(userId);
+        return userRepository.existsByKeycloakId(userId);
     }
 }
