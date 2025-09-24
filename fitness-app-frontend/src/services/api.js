@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = 'http://localhost:8080/api/v1/'
+const API_URL = 'http://localhost:8080/api/v1'
 
 const api = axios.create({
     baseURL: API_URL
@@ -11,9 +11,10 @@ api.interceptors.request.use((config) => {
     if(userId){
         config.headers['X-User-ID'] = userId;
     }
+    return config;
 });
 
 
 export const getActivities = () => api.get('/activities');
-export const addActivity = () => api.post('/activity' , activity);
-export const getActivityDetails = () => api.get('/recommendations/activity/${id}');
+export const addActivity = (activity) => api.post('/activities' , activity);
+export const getActivityDetails = () => api.get(`/recommendations/activity/${id}`);

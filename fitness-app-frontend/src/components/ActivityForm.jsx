@@ -11,12 +11,13 @@ const ActivityForm = ({onActivityAdded}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
+    try {
+      console.log(activity);
       await addActivity(activity);
       onActivityAdded();
-      setActivity({type: "RUNNING" , duration: '' , caloriesBurned: ''});
-    }catch (error) {
-
+      setActivity({ type: "RUNNING", duration: '', caloriesBurned: ''});
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -36,7 +37,7 @@ const ActivityForm = ({onActivityAdded}) => {
         label="Duration (Minutes)" 
         type='number' sx={{mb:2}} 
         value={activity.duration}
-        onChange={(e) => setActivity({...activity, type: e.target.value})}/>
+        onChange={(e) => setActivity({...activity, duration: e.target.value})}/>
 
       <TextField fullWidth 
         label="Calories Burned" 
