@@ -134,7 +134,7 @@ public class ActivityAIService {
     }
 
     private void addAnalysisSection(final StringBuilder fullAnalysis, final JsonNode analysisNode, final String key, final String prefix) {
-        if(analysisNode.path(key).isMissingNode()){
+        if(!analysisNode.path(key).isMissingNode()){
             fullAnalysis.append(prefix)
                     .append(analysisNode.path(key).asText())
                     .append("\n\n");

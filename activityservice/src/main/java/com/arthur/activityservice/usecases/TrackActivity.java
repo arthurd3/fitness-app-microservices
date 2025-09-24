@@ -28,8 +28,7 @@ public class TrackActivity {
     private String routingKey;
 
     public ActivityResponse trackActivity(final ActivityRequest request) {
-
-
+        
         boolean isValidUser = userValidationService.validateUser(request.getUserId());
         log.info("user validation is {}", isValidUser);
         if (!isValidUser) {
