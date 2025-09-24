@@ -8,13 +8,11 @@ import ActivityForm from "./components/ActivityForm"
 import ActivityList from "./components/ActivityList"
 import ActivityDetail from "./components/ActivityDetail"
 
-const ActivitiesPage = () => {
-  return (
-    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-      <ActivityForm onActivitiesAdded = { () => window.location.reload() }/>
-      <ActivityList />
-    </Box>
-  );
+const ActvitiesPage = () => {
+  return (<Box sx={{ p: 2, border: '1px dashed grey' }}>
+    <ActivityForm onActivitiesAdded = {() => window.location.reload()} />
+    <ActivityList />
+  </Box>);
 }
 
 function App() {
@@ -43,7 +41,7 @@ function App() {
           // </div>
           <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
               <Routes>
-                  <Route path="/activities" element={<ActivitiesPage/>}/>
+                  <Route path="/activities" element={<ActvitiesPage/>}/>
                   <Route path="/activities/:id" element={<ActivityDetail />}/>
 
                   <Route path="/" element={token ? <Navigate to="/activities" replace /> : <div>Welcome! Please Login.</div>} />

@@ -2,7 +2,7 @@ import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } fro
 import React, { useState } from 'react'
 import { addActivity } from '../services/api'
 
-const ActivityForm = ({ onActivityAdded }) => {
+const ActivityForm = ({ onActivitiesAdded }) => {
 
   const [activity , setActivity] = useState({
     type: "RUNNING" , duration: '' , caloriesBurned: '' ,
@@ -13,7 +13,7 @@ const ActivityForm = ({ onActivityAdded }) => {
     e.preventDefault();
     try {
       await addActivity(activity);
-      onActivityAdded();
+      onActivitiesAdded();
       setActivity({ type: "RUNNING", duration: '', caloriesBurned: ''});
     } catch (error) {
       console.error(error);
